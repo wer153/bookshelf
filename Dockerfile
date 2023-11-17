@@ -1,4 +1,4 @@
-FROM python:3.12-slim-bookworm as requirements-stage
+FROM python:3.12-bookworm as requirements-stage
 WORKDIR /tmp
 # https://python-poetry.org/docs#ci-recommendations
 ENV POETRY_VERSION=1.7.1
@@ -14,15 +14,14 @@ RUN python3 -m venv $POETRY_VENV \
 	&& $POETRY_VENV/bin/pip install poetry==${POETRY_VERSION}
 # Copy Dependencies
 COPY poetry.lock pyproject.toml ./
-RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
 # Validate the project is properly configured
-RUN poetry check
+RUN poetry check && poetry install
 
 
 FROM python:3.12-slim-bookworm
 WORKDIR /code
 # Copy Dependencies
-COPY --from=requirements-stage /tmp/requirements.txt /code/requirements.txt
-RUN apt update && apt install -y gcc && pip install --no-cache-dir --upgrade -r /code/requirements.txt
+COPY --from=requirements-stage /opt/poetry-venv /root/.local 
 COPY ./app /code/app
+ENV PATH=/root/.local/bin:$PATH
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
