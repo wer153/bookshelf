@@ -1,7 +1,7 @@
 import nox  # type: ignore
 
 
-_TARGET_PYTHON_VERSION = "3.12"
+_TARGET_PYTHON_VERSION = "3.11"
 nox.options.error_on_external_run = True
 nox.options.report = ".nox-report.json"
 
