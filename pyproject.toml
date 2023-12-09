@@ -7,6 +7,10 @@ authors = ["Kim Minki <wer153@naver.com>"]
 [tool.poetry.dependencies]
 python = "^3.12"
 litestar = {extras = ["standard"], version = "^2.3.2"}
+mypy = "^1.7.1"
+coverage = "^7.3.2"
+ruff = "^0.1.7"
+pytest = "^7.4.3"
 
 
 [build-system]
