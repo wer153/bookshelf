@@ -2,8 +2,8 @@ from litestar import Litestar, get, post
 
 
 @get("/healthcheck")
-async def healthcheck() -> str:
-    return "healthy"
+async def healthcheck() -> dict[str, str]:
+    return {"message:": "healthy"}
 
 
 @post("/books")
