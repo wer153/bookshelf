@@ -11,4 +11,6 @@ async def add_book(isbn: str) -> str:
     return isbn
 
 
-app = Litestar([healthcheck])
+def create_app() -> Litestar:
+    app = Litestar([healthcheck])
+    return app
