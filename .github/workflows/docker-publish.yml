@@ -14,8 +14,25 @@ env:
 
 
 jobs:
-  build:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
+      - name: Install tools via pipx
+        run: |
+          pipx install -f nox=2023.4.22
+          pipx install -f poetry=1.7.1
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236 # v4.7.1
+        with:
+          python-version: "3.11"
+          cache: "poetry"
+      - name: Run Nox
+        run: nox -s ci
+  cd:
     runs-on: ubuntu-latest
 
     steps:
