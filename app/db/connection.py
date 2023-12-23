@@ -1,7 +1,9 @@
-from advanced_alchemy.extensions.litestar.plugins.init.config import (
+from __future__ import annotations
+
+from litestar.contrib.sqlalchemy.base import UUIDBase
+from litestar.contrib.sqlalchemy.plugins import (
+    AsyncSessionConfig,
     SQLAlchemyAsyncConfig,
-)
-from advanced_alchemy.extensions.litestar.plugins.init.plugin import (
     SQLAlchemyInitPlugin,
 )
 from settings import PostgresConfig
@@ -12,11 +14,18 @@ _DATABASE_URI = (
     f"{PostgresConfig.host}:{PostgresConfig.port}/{PostgresConfig.db_name}"
 )
 
+_SESSION_CONFIG = AsyncSessionConfig(expire_on_commit=False)
+_SQLALCHEMY_CONFIG = SQLAlchemyAsyncConfig(
+    connection_string=_DATABASE_URI,
+    session_config=_SESSION_CONFIG,
+)
 
-def _get_init_plugin() -> SQLAlchemyInitPlugin:
-    return SQLAlchemyInitPlugin(
-        config=SQLAlchemyAsyncConfig(connection_string=_DATABASE_URI),
-    )
+
+async def init_db() -> None:
+    async with _SQLALCHEMY_CONFIG.get_engine().begin() as conn:
+        await conn.run_sync(UUIDBase.metadata.create_all)
 
 
-PLUGIN = _get_init_plugin()
+PLUGIN = SQLAlchemyInitPlugin(
+    config=_SESSION_CONFIG,
+)

@@ -1,4 +1,5 @@
 from db.connection import PLUGIN as DB_PLUGIN
+from db.connection import init_db
 from litestar import Litestar, get, post
 
 
@@ -14,7 +15,8 @@ async def add_book(isbn: str) -> str:
 
 def create_app() -> Litestar:
     app = Litestar(
-        [healthcheck],
+        on_startup=init_db,
+        route_handlers=[healthcheck],
         plugins=[DB_PLUGIN],
     )
     return app
