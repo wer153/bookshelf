@@ -28,5 +28,5 @@ async def init_db() -> None:
 
 
 PLUGIN = SQLAlchemyInitPlugin(
-    config=_SESSION_CONFIG,
+    config=_SQLALCHEMY_CONFIG,
 )
