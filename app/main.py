@@ -1,6 +1,7 @@
-from db.connection import PLUGIN as DB_PLUGIN
-from db.connection import init_db
 from litestar import Litestar, get, post
+
+from app.db.connection import PLUGIN as DB_PLUGIN
+from app.db.connection import init_db
 
 
 @get("/healthcheck")
