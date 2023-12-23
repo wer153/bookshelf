@@ -6,7 +6,8 @@ from litestar.contrib.sqlalchemy.plugins import (
     SQLAlchemyAsyncConfig,
     SQLAlchemyInitPlugin,
 )
-from settings import PostgresConfig
+
+from app.settings import PostgresConfig
 
 _DATABASE_URI = (
     "postgresql+asyncpg://"
