@@ -12,6 +12,7 @@ coverage = "^7.3.2"
 ruff = "^0.1.7"
 pytest = "^7.4.3"
 pymongo = "^4.6.1"
+advanced-alchemy = "^0.6.1"
 
 
 [build-system]
