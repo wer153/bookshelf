@@ -16,7 +16,7 @@ async def add_book(isbn: str) -> str:
 
 def create_app() -> Litestar:
     app = Litestar(
-        on_startup=init_db,
+        on_startup=[init_db],
         route_handlers=[healthcheck],
         plugins=[DB_PLUGIN],
     )
