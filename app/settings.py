@@ -5,7 +5,7 @@ class _PostgresConfig(BaseModel):
     username: str = "postgres"
     password: str = "password"
     host: str = "localhost"
-    port: int = 8000
+    port: int = 5432
     db_name: str = "bookshelf"
 
 
