@@ -7,12 +7,12 @@ from litestar.contrib.sqlalchemy.plugins import (
     SQLAlchemyInitPlugin,
 )
 
-from app.settings import PostgresConfig
+from app.settings import POSTGRES_CONFIG
 
 _DATABASE_URI = (
     "postgresql+asyncpg://"
-    f"{PostgresConfig.username}:{PostgresConfig.password}@"
-    f"{PostgresConfig.host}:{PostgresConfig.port}/{PostgresConfig.db_name}"
+    f"{POSTGRES_CONFIG.username}:{POSTGRES_CONFIG.password}@"
+    f"{POSTGRES_CONFIG.host}:{POSTGRES_CONFIG.port}/{POSTGRES_CONFIG.db_name}"
 )
 
 _SESSION_CONFIG = AsyncSessionConfig(expire_on_commit=False)
