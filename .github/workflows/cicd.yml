@@ -53,6 +53,7 @@ jobs:
       - name: Run Nox
         run: nox -s ci
   cd:
+    needs: ci
     runs-on: ubuntu-latest
     permissions:
       contents: read
