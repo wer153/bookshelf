@@ -1,0 +1,25 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/web.dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    external_links:
+      - db:postgres
+  db:
+    build:
+      context: .
+      dockerfile: docker/db.dockerfile
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=bookshelf
+      - LC_ALL=ko_KR.utf8
+      - LANGUAGE=ko_KR.utf8
+      - LANG=ko_KR.utf8
+      - TZ=Asia/Seoul
